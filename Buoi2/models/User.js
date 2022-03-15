@@ -9,10 +9,16 @@ const userSchema = new Schema({
     required: [true, "Trường name này là bắt buộc"],
     minlength: [3, "Độ dài name ít nhất 3 từ"],
   },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   age: { type: Number, required: true, min: 18, max: 100 },
   role: {
     type: String,
     enum: ["user", "admin"],
+    default: "user",
   },
   password: String,
 });
@@ -23,9 +29,13 @@ userSchema.pre("save", async function (next) {
 
   if (user.isModified("password")) {
     user.password = await bcrypt.hash(user.password, 8);
-    user.name = await bcrypt.hash(user.name, 8);
   }
   next();
 });
+
+userSchema.methods.isPasswordMatch = async function (password) {
+  const user = this;
+  return bcrypt.compare(password, user.password);
+};
 
 module.exports = mongoose.model("users", userSchema);
