@@ -1,4 +1,7 @@
 const express = require("express");
+
+require("dotenv").config();
+
 const db = require("./config/db");
 const router = require("./routes/index");
 const errorHandle = require("./middlewares/errorHandle");
@@ -12,6 +15,7 @@ db();
 
 router(app);
 app.use(errorHandle);
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

@@ -4,6 +4,6 @@ const authRouter = require("./auth.router");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 module.exports = (app) => {
-  app.use("/api/auth", authRouter);
-  app.use("/api", authMiddleware.protect, userRouter);
+  app.use("/api/", authRouter);
+  app.use("/api", userRouter);
 };
