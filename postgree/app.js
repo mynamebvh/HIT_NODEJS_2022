@@ -15,11 +15,11 @@ app.get("/", async (req, res) => {
     username: "mynamebvh",
   });
 
-  await Post.create({
-    title: "a",
-    content: "hello",
-    userId: "8e3706e9-4dcb-43bb-bb98-4aa26c2ba9da",
-  });
+  // await Post.create({
+  //   title: "a",
+  //   content: "hello",
+  //   userId: "8e3706e9-4dcb-43bb-bb98-4aa26c2ba9da",
+  // });
   await res.json(user);
 });
 

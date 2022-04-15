@@ -1,3 +1,5 @@
+const bcrypt = require("bcryptjs");
+
 const db = require("./index");
 
 const Post = db.post;
@@ -25,9 +27,14 @@ module.exports = (sequelize, Sequelize) => {
       },
     },
     {
+      hooks: {
+        async beforeCreate(user) {
+          user.password = await bcrypt.hash(user.password, 8);
+        },
+      },
       tableName: "users",
       timestamps: true,
-    }
+    },
   );
 
   User.associate = (models) => {
@@ -36,5 +43,6 @@ module.exports = (sequelize, Sequelize) => {
       as: "posts",
     });
   };
+
   return User;
 };

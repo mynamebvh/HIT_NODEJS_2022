@@ -28,8 +28,9 @@ module.exports = (sequelize, Sequelize) => {
     {
       tableName: "posts",
       timestamps: true,
-    }
+    },
   );
+
   Post.associate = (models) => {
     Post.belongsTo(models.user, {
       foreignKey: "userId",
